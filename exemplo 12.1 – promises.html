@@ -1,0 +1,77 @@
+  <!doctype html>
+  <html ng-app="myApp">
+  <head>
+  <style>
+    .atividade{ background-color: #f1f1f1; border: 1px solid dashed; padding: 10px  }
+    .checked {background-color: #0099FF; color: #FFFFFF; border:none}
+    .unchecked {background-color: #ccc; color: #f1f1f1; border:none; font-style: italic}
+  </style>
+  </head>
+  <body ng-controller="SimuladorTempoController">
+    <div>
+      <span>[Simulador] Alterar Tempo: </span>
+      <button ng-class="{checked: tempo == 'chuva', unchecked: tempo != 'chuva'}" ng-    click="alterarTempo('chuva')">chuva</button><span/>
+      <button ng-class="{checked: tempo == 'sol', unchecked: tempo != 'sol'}" ng-click="alterarTempo('sol')">sol</button>
+      <hr/>
+    </div>
+    <div class="atividade">
+      <div ng-bind="message"></div>
+    </div>
+  <script src="angular.min.js"></script>
+  <script type="text/javascript">
+  angular.module('myApp', [])
+
+  .controller('SimuladorTempoController', ['$rootScope', 'TempoService', function($rootScope, TempoService) {
+      $rootScope.alterarTempo = function(tempo){
+        $rootScope.tempo = tempo;
+        $rootScope.verificarTempo();
+      }
+
+      $rootScope.verificarTempo = function(){
+        $rootScope.message = "Verificando Tempo/Clima...";	
+    
+        TempoService.tempoEstaComSol()
+  					  .then(
+  						  function(message){
+     							$rootScope.irPescar(message);
+     						},
+  	   				  function(error){
+  		   					$rootScope.ficarEmCasa(error);
+  			   		  });
+          };
+  	
+       $rootScope.irPescar = function(message){
+  				$rootScope.message = "-" + message + "-" + " Está um ótimo tempo ensolarado. Vamos Pescar!";
+       };
+
+       $rootScope.ficarEmCasa = function(message){
+  				$rootScope.message = "-" + message + "-" + " Está muito chuvoso hoje. Vamos ficar em casa!";
+       };
+    }])
+
+    .factory('TempoService', ['$q', '$timeout', '$rootScope', function($q, $timeout, $rootScope){
+      var service = {
+  				tempoEstaComSol : function(){
+
+  				// cria a promise, por meio de $q.defer();
+  				var defer = $q.defer();
+
+  				//simular operação assincrona
+  				$timeout(function(){
+  					if($rootScope.tempo === 'chuva'){
+  						defer.reject("Tempo chuvoso"); 
+  					}else if($rootScope.tempo === 'sol'){
+  						defer.resolve("Tempo ensolarado"); 
+  					}
+  				}, 3000); // 3 segundos
+
+  			// retorna a promise
+  			return defer.promise;			
+  			}
+      };
+
+  	 return service;
+  }]);      
+  </script>
+  </body>
+  </html>

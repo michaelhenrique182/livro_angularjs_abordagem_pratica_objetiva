@@ -1,0 +1,41 @@
+  <!doctype html>
+  <html ng-app="myApp">
+  <body>
+    <h4>Promise Chain</h4>
+    <div ng-controller="PromiseChainController">
+      <ul>
+        <li ng-repeat="h in hobbies">
+           Valor recebido na <b>Promise <u>{{$index + 1}}</u></b> => {{h}}
+        </li>
+      </ul>
+    </div>
+  <script src="angular.min.js"></script>
+  <script type="text/javascript">
+  angular.module('myApp', [])      
+  .controller('PromiseChainController', ['$scope', '$q', function($scope, $q) {
+    // resultado - saída
+    $scope.hobbies = [];
+
+    // defer object
+    var defer = $q.defer();
+
+    // chain
+    defer.promise
+    .then(function(hobby){
+      $scope.hobbies.push(hobby);
+      return "Ver Filme";
+    })
+    .then(function(hobby){
+      $scope.hobbies.push(hobby);
+      return "Jogar Futebol";
+    })
+    .then(function(hobby){
+      $scope.hobbies.push(hobby);
+    });
+
+    // inicia chain no primeiro defer.resolve()
+    defer.resolve("Sair com os Amigos");
+  }]);
+  </script>
+  </body>
+  </html>

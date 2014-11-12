@@ -1,0 +1,21 @@
+	<!doctype html>
+	<html ng-app="myApp">
+	<style type="text/css">
+	.redclass  {
+	  color: red;
+	}
+	</style>
+	<body>
+	<div ng-controller="ClassController">
+		<div ng-class="getDivClass()">Hello World</div>
+	</div>
+	<script src="angular.min.js"></script>
+	<script type="text/javascript">
+	var app = angular.module('myApp', []);
+
+	app.controller('ClassController', [ '$scope', function($scope) {
+		$scope.getDivClass = function(){ return “redclass"; }
+	} ]);
+	</script>
+	</body>
+	</html>

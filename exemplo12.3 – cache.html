@@ -1,0 +1,40 @@
+	<!doctype html>
+	<html ng-app="app">
+	<body ng-controller="CacheController">
+		<h4>cache info</h4>
+		<pre>{{info | json}}</pre>
+		
+		<h4>cache values</h4>
+		<pre>{{elements | json}}</pre>
+		
+		<script src="angular.min.js"></script>
+
+		<script type="text/javascript">
+			 angular.module('app', [])
+			
+			 .controller('CacheController', ['$scope', '$cacheFactory', function($scope, $cacheFactory){
+				  $scope.cache = $cacheFactory('mycache');
+
+	  			  // info. do cache
+				  $scope.info = $scope.cache.info();
+				
+				  // insere elementos no cache
+				  $scope.keys = ["ApiToken1", "ApiToken2", "ApiToken3"];
+				  $scope.cache.put($scope.keys[0], "token1-key");
+				  $scope.cache.put($scope.keys[1], "token2-key");
+				  $scope.cache.put($scope.keys[2], "token3-key");
+
+				  // recupera dados do cache
+				  $scope.elements = [];
+
+				  for(key in $scope.keys){
+					  var el = {
+						  "key": $scope.keys[key], 
+						  "Value": $scope.cache.get( $scope.keys[key])
+					  };
+					  $scope.elements.push(el);
+				  };
+			 }]);
+		</script>
+	</body>
+	</html>

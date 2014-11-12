@@ -1,0 +1,26 @@
+  <!doctype html>
+  <html ng-app="myApp">
+  <body>
+    <div ng-controller="TopController">
+      <button ng-click="doBroadcast()">Invocar $broadcast('MyEvent')</button>
+      <p ng-controller="ChildController"> {{msg}} </p>
+    </div>
+  <script src="angular.min.js"></script>
+  <script type="text/javascript">
+  var app = angular.module('myApp',[]);
+
+  app.controller('TopController',['$scope',function($scope){
+    $scope.doBroadcast = function(){
+      $scope.$broadcast('TopControllerEvent',{ msg :"TopController Event"});
+    };
+  }]);
+
+  app.controller('ChildController',['$scope',function($scope){
+    $scope.$on('TopControllerEvent',function(event, args){
+      $scope.msg ='[ChildController] Novo evento: '+ args.msg;
+    });
+  }]);
+
+  </script>
+  </body>
+  </html>

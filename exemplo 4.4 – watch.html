@@ -1,0 +1,32 @@
+	<!doctype html>
+	<html ng-app="myApp">
+	<body>
+	  <div ng-controller="MyController">
+	    <input type="text" ng-model="total" />
+	    <button ng-click="increment()">Incrementar Total pelo Controller</button><br />
+	    <hr />
+	      <span>{{total}}</span>
+	    <hr />
+	    <b>$watch listener =</b> {{listenerMessage}}
+	  </div>
+	<script src="angular.min.js"></script>
+	<script type="text/javascript">
+	var app = angular.module('myApp', []);
+	app.controller('MyController', [ '$scope', function($scope) {
+		$scope.total = 0;
+		$scope.listenerMessage = '';
+		
+		function totalChanged(newValue, oldValue) {
+		  $scope.listenerMessage = 'Valor Antigo: ' + oldValue + ', Novo valor: ' + newValue;
+		}
+		
+		// observar alterações de $scope.total
+		$scope.$watch('total', totalChanged);
+		
+		$scope.increment = function(){
+			$scope.total++;
+		}
+	}]);
+	</script>
+	</body>
+	</html>

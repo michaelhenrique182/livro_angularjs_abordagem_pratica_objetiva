@@ -1,0 +1,39 @@
+  <!doctype html>
+  <html ng-app="myApp">
+  <body ng-controller="ParentController">
+    <div>
+      <span>Contador-pai: {{count}}</span><br />
+      <button ng-click="incrementCount()">Incrementar Contador-pai</button><br />
+      <div my-dir count-alert-handler="alertCount(label, parentControllerCount)" count="count" label=" Total: " />
+    </div>
+  <script src="angular.min.js"></script>
+  <script type="text/javascript">
+   angular.module('myApp', [])
+  .controller('ParentController', function($scope) {
+    $scope.count = 1; // scope-pai
+    $scope.alertCount = function(label, parentControllerCount){
+      window.alert(label + ' ' + parentControllerCount);
+    }
+    $scope.incrementCount = function(){
+      $scope.count++;
+    }
+  })
+  .directive('myDir', function() {
+   return {
+  	scope: {
+  		count: "=",
+  		countAlertHandler: "&",
+  		label: "@"
+  	},
+  	 link: function(scope, ele, attrs) {
+  		var button = angular.element('<button>Alert Parent Count</button>');
+  		button.on('click', function(){
+  			scope.countAlertHandler({label: scope.label, parentControllerCount: scope.count});
+  		});
+  		ele.append(button);
+    }
+   };
+  });
+  </script>
+  </body>
+  </html>

@@ -1,0 +1,18 @@
+	<!doctype html>
+	<html ng-app="myApp">
+	<body>
+	  <div ng-controller="TwitterController">
+	    <span><b>Token as constant: </b>{{token}}</span>
+	  </div>
+	<script src="angular.min.js"></script>
+	<script type="text/javascript">
+	var app = angular.module('myApp', []);
+	app.constant('$twitterApiToken', 'YTEyMzQ1NjU0MzIxeA==');			// token declarado como Constant
+	app.controller('TwitterController', [ '$scope', '$twitterApiToken', 
+		function($scope, $twitterApiToken) {
+		   $scope.token = $twitterApiToken;
+		} 
+	]);
+	</script>
+	</body>
+	</html>

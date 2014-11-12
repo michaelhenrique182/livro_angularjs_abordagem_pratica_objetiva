@@ -1,0 +1,25 @@
+	<!doctype html>
+	<html ng-app="myApp">
+	<body>
+
+	<input type="text"/><br/>
+
+	<input type="text"/><br/>
+
+	<input type="text"apply-focus/><br/>
+
+	<input type="text"/><br/>
+
+	<script src="angular.min.js"></script>
+	<script type="text/javascript">
+	angular.module('myApp',[])
+	.directive('applyFocus',function(){
+		return{
+			link:function(scope, element, attrs){
+				element[0].focus();
+			}
+		};
+	});
+	</script>
+	</body>
+	</html>

@@ -1,0 +1,37 @@
+	<!doctype html>
+	<html ng-app="myApp">
+	<style type="text/css">
+	.error{
+	  background-color: red;
+	}
+	.warning{
+	  background-color: yellow;
+	}
+	</style>
+	<body>
+	  <div ng-controller='ClassController'>
+	  <div ng-class='{error: isError, warning: isWarning}'>Eu sou um texto!</div>
+	  <button ng-click='showError()'>Simular Erro</button>
+	  <button ng-click='showWarning()'>Simular Warning</button>
+	</div>
+	<script src="angular.min.js"></script>
+	<script type="text/javascript">
+	var app = angular.module('myApp',[]);
+	
+	app.controller('ClassController',['$scope',function($scope){
+		$scope.isError=false;
+		$scope.isWarning =false;
+
+		$scope.showError =function(){
+			$scope.isError =true;
+			$scope.isWarning =false;
+		};
+
+		$scope.showWarning = function(){
+			$scope.isWarning = true;
+			$scope.isError = false;
+		};
+	}]);
+	</script>
+	</body>
+	</html>

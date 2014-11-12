@@ -1,0 +1,34 @@
+  <!doctype html>
+  <html ng-app="myApp">
+  <style type="text/css">
+  input {
+    padding: 10px;
+  }
+  .validation div  {
+    background-color: #f1f1f1;
+    border: 1px solid red;
+    padding: 5px;
+    margin-top: 2px;
+    width: 200px;
+  }
+  </style>
+  <body>
+  <div ng-controller="FormController">
+  <form name="f" novalidate="novalidate">
+      Nome: <input name="nome" type="text" ng-model="usuario.nome" /><br />
+      Email:<input name="email" type="email" ng-model="user.email" required/><br />
+    <div class="validation" ng-show="f.email.$dirty && f.email.$invalid">
+      <div ng-show="f.email.$error.required">Por favor, preencha um email</div>
+      <div ng-show="f.email.$error.email">Preencha um email válido</div>
+    </div>
+  </form>
+  </div>
+  <script src="angular.min.js"></script>
+  <script type="text/javascript">
+  var app = angular.module('myApp', []);
+  
+  app.controller('FormController', [ '$scope', function($scope) {
+  } ]);
+  </script>
+  </body>
+  </html>

@@ -1,0 +1,99 @@
+	<!doctype html>
+	<html ng-app="myApp">
+	<style>
+	ul {
+		float: left;
+		width: 100%;
+		padding: 0;
+		margin: 0 0 10px 0;
+		list-style-type: none;
+	}
+
+	a {
+		float: left;
+		text-decoration: none;
+		color: white;
+		background-color: #3C599B;
+		padding: 0.2em 0.6em;
+		border-right: 1px solid white;
+		width: auto 100%;
+	}
+
+	a:hover {
+		background-color: #61749F;
+	}
+
+	li {
+		display: inline;
+		width: auto 100%;
+	}
+
+	#ng-view {
+		background-color: #E7ECF2;
+		padding: 5px;
+		margin: 10px;
+	}
+
+	pre {
+		font-family: "Lucida Console", arial, sans;
+		font-size: 11px;
+	}
+	</style>
+	<body>
+		<div ng-controller="PaginaPrincipalController">
+			<ul>
+				<li><a href="#!/livro/1"> Livro 1</a></li>
+				<li><a href="#!/livro/1/capitulo/2"> Livro 1 Capítulo 2</a></li>
+				<li><a href="#!/linkquebrado/1"> Link Quebrado (otherwise route)</a></li>
+			</ul>
+			
+			<!-- conteudo do template da rota, armazenado em ng-view -->
+			<div id="ng-view" ng-view></div>
+
+			<fieldset>
+				<legend>Alguns dados de $route e $routeParams</legend>
+				<pre>$route.current.templateUrl = {{$route.current.templateUrl}}</pre>
+				<pre>$route.current.params = {{$route.current.params}}</pre>
+				<pre>$routeParams = {{$routeParams}}</pre>
+			</fieldset>
+		</div>
+
+		<script src="angular.min.js"></script>
+		<script src="angular-route.min.js"></script>
+
+		<script type="text/javascript">
+			var app = angular.module('myApp', ['ngRoute'])
+			.controller('PaginaPrincipalController', ['$scope','$route','$routeParams', function($scope, $route, $routeParams) {
+			     $scope.$route = $route;
+			     $scope.$routeParams = $routeParams;
+			 }])
+			 .controller('LivroController', ['$scope','$routeParams', function($scope, $routeParams) {
+			     $scope.nome = "LivroController";
+			     $scope.parametros = $routeParams;
+			 }])
+			 .controller('CapituloController', ['$scope','$routeParams', function($scope, $routeParams) {
+				$scope.nome = "CapituloController";
+			     $scope.parametros = $routeParams;
+			 }])
+			.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+
+			// configura hashbang prefix
+			$locationProvider.hashPrefix('!');
+
+			  // inicio da configuracao de rotas
+			$routeProvider
+			.when('/livro/:id', {
+			templateUrl: 'livro.html',
+			    controller: 'LivroController'
+			  })
+			  .when('/livro/:idLivro/capitulo/:idCap', {
+			templateUrl: 'capitulo.html',
+			    controller: 'CapituloController'
+			  })
+			  .otherwise({
+				  redirectTo: '/'
+			  });
+			}]);
+		</script>
+	</body>
+	</html>

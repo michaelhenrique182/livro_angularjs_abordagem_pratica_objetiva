@@ -1,0 +1,23 @@
+  <!doctype html>
+  <html ng-app="myApp">
+  <body>
+    <div ng-controller="FormController">
+      <form novalidate="novalidate">
+        Nome: <input type="text" ng-model="usuario.nome" /><br />
+        Sexo: <input type="radio" ng-model="usuario.sexo" value="M" />Masculino
+        <input type="radio" ng-model="usuario.sexo" value="F" />Feminino<br />
+        <button ng-click="salvar(usuario)">Salvar</button>
+      </form>
+      <b>{{usuario | json}}</b>
+    </div>
+  <script src="angular.min.js"></script>
+  <script type="text/javascript">
+  var app = angular.module('myApp', []);
+  app.controller('FormController', [ '$scope', function($scope) {
+  	$scope.salvar = function(usuario){
+  		this.usuario = {}; // fake impl
+  	}
+  }]);
+  </script>
+  </body>
+  </html>

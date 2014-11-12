@@ -1,0 +1,34 @@
+  <!doctype html>
+  <html ng-app="myApp">
+  <body ng-controller="ParentController">
+    <div>
+      <span>Parent Count: {{parentCount}}</span><br />
+      <div my-dir count="parentCount" />
+    </div>
+  <script src="angular.min.js"></script>
+  <script type="text/javascript">
+   angular.module('myApp', [])
+  .controller('ParentController', function($scope) {
+    $scope.parentCount = 1; // scope Pai
+  })
+  .directive('myDir', function() {
+    return {
+      scope: {
+        count: "="
+      },
+      link: function(scope, ele, attrs) {
+      var button = angular.element('<button>Increment ParentController count through Directive</button>');
+
+      button.on('click', function(){
+        scope.$apply(function(){
+          scope.count++;
+        });
+      });
+      
+      ele.append(button);
+    }
+   };
+  });
+  </script>
+  </body>
+  </html>

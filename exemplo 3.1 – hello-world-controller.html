@@ -1,0 +1,14 @@
+	<!doctype html>
+	<html ng-app>
+	<body>
+	  <div ng-controller="HelloWorldController">
+	    <h1>Hello {{nome}}!</h1>
+	  </div>
+	<script src="angular.min.js"></script>
+	<script type="text/javascript">
+	function HelloWorldController($scope){
+		$scope.nome = "World";
+	}
+	</script>
+	</body>
+	</html>

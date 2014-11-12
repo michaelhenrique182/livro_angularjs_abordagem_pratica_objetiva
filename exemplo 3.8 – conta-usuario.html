@@ -1,0 +1,31 @@
+  <!doctype html>
+  <html ng-app="myApp">
+  <head><style> p {background-color: #FEFBF3; padding:15px} </style></head>
+  <body>
+    <div ng-controller="ContaController">
+      <h2 app-conta-directive></h2>
+      <hr/>
+        <p>Bem vindo {{cliente.nome}} ! </p>
+      <hr/>
+      <footer>
+        <div app-conta-directive></div>
+      </footer>
+    </div>
+  <script src="angular.min.js"></script>
+  <script type="text/javascript">
+  angular.module('myApp', [])
+  .controller('ContaController', function($scope) {
+    $scope.cliente = {
+      nome: 'Jonny J.',
+      conta: '8292',
+      agencia: '900839-11'
+    };
+  })
+  .directive('appContaDirective', function() {
+    return {
+      template: 'Nome: {{cliente.nome}} Conta: {{cliente.conta}} Ag: {{cliente.agencia}}'
+    };
+  });
+  </script>
+  </body>
+  </html>

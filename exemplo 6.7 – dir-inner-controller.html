@@ -1,0 +1,40 @@
+  <!doctype html>
+  <html ng-app="myApp">
+  <body>
+    <div gol jogo times="Cruze vs Holy"/>
+  <script src="angular.min.js"></script>
+  <script type="text/javascript">
+  angular.module('myApp', [])
+  .directive('jogo', function() {
+  return {
+  scope: {
+  	times: '@'
+  },
+  controller: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
+  	$scope.gols = 0;
+  	this.increment = function(){
+  		$scope.gols++;
+    };
+  }],
+    template: "<p>Partida: [{{times}}] </p><b>Gols do Jogo: </b>{{gols}}"
+  };
+  })
+  .directive('gol', function() {
+  return {
+  	require: 'jogo', // get jogoController
+    link: function(scope, el, attrs, jogoController){
+    var b = angular.element("<p><button>Aumentar gols do Jogo</button></p>");
+
+    b.on('click', function(){
+      scope.$apply(function(){
+        jogoController.increment();
+      });
+    });
+    
+    el.parent().append(b);
+    }
+   };
+  });
+  </script>
+  </body>
+  </html>

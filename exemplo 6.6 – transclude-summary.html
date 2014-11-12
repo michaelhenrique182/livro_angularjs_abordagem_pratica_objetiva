@@ -1,0 +1,38 @@
+  <!doctype html>
+  <html ng-app="myApp">
+  <head>
+  <style>div p {font-size:12px; border:1px solid #F1F1F1}</style>
+  <meta charset="utf-8">
+  </head>
+  <body>
+  <div summary title="Foursquare aposenta 'check-in' e promete busca local personalizada">
+    <p>Recurso de apontar lugares frequentados foi transferido ao app Swarm.</p>
+    <p>Novo aplicativo com funcionamento reformulado será lançado em breve.</p>
+  </div>
+
+  <div summary title="Registro de patente revela relógio inteligente da Apple chamado 'iTime'">
+    <p>Empresa pede tecnologia de pulseira eletrônica conectado a celular e tablet.</p>
+    <p>Tela sensível ao toque será removível e é similar ao do iPod nano.</p>
+  </div>
+
+  <script src="angular.min.js"></script>
+  <script type="text/javascript">
+  angular.module('myApp', [])
+  .directive('summary', function() {
+  return {
+    scope: {
+      title: "@"
+    },
+    transclude: true,
+    template: 
+      '<div>' +
+        '<details>' +
+          '<summary>{{title}}</summary>' +
+          '<div ng-transclude></div>' +
+        '</details>' +
+     '</div>'
+   };
+  });
+  </script>
+  </body>
+  </html>

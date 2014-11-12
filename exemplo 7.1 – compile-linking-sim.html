@@ -1,0 +1,35 @@
+	<!doctype html>
+	<html ng-app="app">
+	<body>
+	  <h4> - Ciclo de inicialização- Simulação por meio de diretiva - </h4>
+	  <div bootstrap />
+	</body>
+
+	<script src="angular.min.js"></script>
+	<script type="text/javascript">
+	 var app = angular.module('app', []);
+	app.directive('bootstrap', ['$compile', '$rootScope', function($compile, $rootScope) {
+		return function(scope, element, attrs) {
+		   /*
+		    * configuração hipotética do escopo
+		    */
+			$rootScope.total = 0;
+			$rootScope.increment = function(){
+				$rootScope.total++;
+			};
+
+			// simulando template encontrado pelo AngularJS, baseado na diretiva ng-app
+			var template = angular.element("<p><b>Total</b>: {{total}}</p><button ng-click='increment()'>Incrementar Total</button>");
+
+				// compile phase - compila o template
+			var linkFn = $compile(template);
+
+			// linking phase - efetua linkagem, baseado no retorno da fase de compilação
+			var liveView = linkFn($rootScope);
+
+			// finalmente inclui a 'Live View' no DOM
+			element.append(liveView);
+	  	};
+	}]);
+	</script>
+	</html>

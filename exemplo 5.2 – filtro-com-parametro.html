@@ -1,0 +1,24 @@
+	<!doctype html>
+	<html ng-app="myApp">
+	<body>
+	  <div ng-controller="UsuarioController">
+	    <div>UpperCase: {{nome | lettercase:'upper'}} !</div>
+	    <br/>
+	    <div>LowerCase: {{nome | lettercase:'lower'}} !</div>
+	  </div>
+	<script src="angular.min.js"></script>
+	<script type="text/javascript">
+	var app = angular.module('myApp', []);
+	
+	app.controller('UsuarioController', [ '$scope', function($scope) {
+		$scope.nome = 'John Henry';
+	}]);
+
+	app.filter('lettercase', function() {
+		return function(input, mode){
+			return mode == 'upper' ? input.toUpperCase() : input.toLowerCase();
+		};
+	});
+	</script>
+	</body>
+	</html>

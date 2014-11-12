@@ -1,0 +1,22 @@
+	<!doctype html>
+	<html ng-app="myApp">
+	<body>
+	  <div ng-controller="LabelController">
+	    <div>{{label | numbers:'5':'10':'15':'20'}} </div>
+	  </div>
+	<script src="angular.min.js"></script>
+	<script type="text/javascript">
+	var app = angular.module('myApp', []);
+	
+	app.controller('LabelController', [ '$scope', function($scope) {
+		$scope.label = 'Números';
+	}]);
+
+	app.filter('numbers', function() {
+		return function(label, n1, n2, n3, n4){
+			return '[' + label + '] ' + n1 + ', ' + n2 + ', ' + n3 + ', ' + n4;
+		};
+	});
+	</script>
+	</body>
+	</html>

@@ -1,0 +1,21 @@
+	<!doctype html>
+	<html ng-app>
+	<body>
+	  <div ng-controller="CarroController">
+	    <b> [CarroController] </b> Tipo: {{tipo}} – Nome: {{nome}}
+	    <div ng-controller="FuscaController">
+	      <b> [FuscaController] </b>  Tipo: {{tipo}} – Nome: {{nome}}
+	    </div>
+	  </div>
+	<script src="angular.min.js"></script>
+	<script type="text/javascript">
+	function CarroController($scope){
+		$scope.tipo = "Carro";
+		$scope.nome = "Carro";
+	} 
+	function FuscaController($scope){
+		$scope.nome = "Fusca";
+	}
+	</script>
+	</body>
+	</html>

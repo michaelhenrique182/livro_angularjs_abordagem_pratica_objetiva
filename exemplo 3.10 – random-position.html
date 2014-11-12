@@ -1,0 +1,36 @@
+  <!doctype html>
+  <html ng-app="myApp">
+  <body>
+    <span random-position>element</span>
+
+  <script src="angular.min.js"></script>
+  <script type="text/javascript">
+  angular.module('myApp', []).directive('randomPosition', function() {
+  return function(scope, element, attr) {
+    var x = 0, y = 0;
+
+    element.css({
+      backgroundColor: '#F2F2F2',
+      border: '1px dashed #CCCCCC',
+      cursor: 'pointer',
+      marginTop: '5px',
+      padding: '10px',
+      position: 'relative'
+    });
+
+    element.attr('title', 'Click me!');
+    element.on('click', mouseclick)
+
+    function mouseclick(event) {
+      y =  Math.floor((Math.random() * event.pageY) + 1);
+      x =  Math.floor((Math.random() * event.pageX) + 1);
+      element.css({
+        top: y + 'px',
+        left:  x + 'px'
+      });
+     }
+   };
+  });    
+  </script>
+  </body>
+  </html>

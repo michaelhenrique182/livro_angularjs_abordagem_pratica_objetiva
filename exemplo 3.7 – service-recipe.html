@@ -1,0 +1,27 @@
+	<!doctype html>
+	<html ng-app="myApp">
+	<body>
+	  <div ng-controller="TwitterController">
+	    <span>Token (by service): {{token}}</span>
+	  </div>
+	<script src="angular.min.js"></script>
+	<script type="text/javascript">
+	var app = angular.module('myApp',[]);
+	
+	app.value('$twitterApiToken','YTEyMzQ1NjU0MzIxeA==');
+	
+	app.service('$TwitterTokenService',['$twitterApiToken',TwitterTokenService]); // declaração por meio de service()
+
+	// Construtor - TwitterTokenService function
+	functionTwitterTokenService(token){
+	  this.getToken =function(){
+	    	return token;
+	  }
+	}
+
+	app.controller('TwitterController',['$scope','$TwitterTokenService',function($scope, $TwitterTokenService){
+	  $scope.token = $TwitterTokenService.getToken();
+	}]);
+	</script>
+	</body>
+	</html>

@@ -1,0 +1,41 @@
+	<!DOCTYPE html>
+	<html ng-app='app'>
+	<head>
+	<meta charset="utf-8">
+	<style> body { text-align: center; } </style>
+	</head>
+	<body ng-controller="ctrl">
+	  
+	  <p>
+	    <a href="#" ng-click="setLang('en_US')">English</a>| 
+	    <a href="#" ng-click="setLang('pt_BR')">Português</a>
+	  </p>
+	  <h2>{{ 'bundle.info' | translate }}</h2>
+	  <div>{{ 'bundle.info' | translate }}</div>
+	  <small>{{ 'bundle.info' | translate }}</small>
+
+	<script src="angular.min.js"></script>
+	<script src="angular-cookies.min.js"></script>
+	<script src="angular-translate.min.js"></script>
+	<script src="angular-translate-storage-cookie.min.js"></script>
+	<script src="angular-translate-loader-url.min.js"></script>
+	
+	<script>
+	angular.module('app', ['pascalprecht.translate', 'ngCookies'])
+	.config(['$translateProvider', function($translateProvider){
+		$translateProvider.useUrlLoader(getContextPath() + '/l10n/');
+		$translateProvider.preferredLanguage('en_US');
+		$translateProvider.useCookieStorage();
+	}])      
+	.controller('ctrl', ['$scope', '$translate', function($scope, $translate) {
+		$scope.setLang = function(langKey) {
+			$translate.use(langKey);
+		};
+	}]);
+	
+	function getContextPath(){
+		return '/' + window.location.pathname.split('/')[1];
+	}
+	</script>
+	</body>
+	</html>

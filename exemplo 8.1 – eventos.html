@@ -1,0 +1,43 @@
+  <!doctype html>
+  <html ng-app="myApp">
+  <body>
+    <div ng-controller="TopController">
+      TopController count: {{count}}
+      <div ng-controller="MiddleController">
+        <b>MiddleController count: {{count}}</b>
+        <button ng-click="$emit('MyEvent')">$emit('MyEvent') from MiddleController $scope</button>
+        <button ng-click="$broadcast('MyEvent')">$broadcast('MyEvent') from MiddleController $scope</button>
+        <br>
+        <div ng-controller="BottomController">
+          BottomController count: {{count}}
+        </div>
+      </div>
+    </div>
+  <script src="angular.min.js"></script>
+  <script type="text/javascript">
+  var app = angular.module('myApp', []);
+  
+  app.controller('TopController', [ '$scope', function($scope) {
+  	$scope.count = 0;
+    $scope.$on('MyEvent', function() {
+  	$scope.count++;
+  });
+  } ]);
+
+  app.controller('MiddleController', [ '$scope', function($scope) {
+      $scope.count = 0;
+      $scope.$on('MyEvent', function() {
+        $scope.count++;
+      });
+  } ]);
+
+  app.controller('BottomController', [ '$scope', function($scope) {
+  	$scope.count = 0;
+    $scope.$on('MyEvent', function() {
+  	$scope.count++;
+  });
+
+  }]);
+  </script>
+  </body>
+  </html>

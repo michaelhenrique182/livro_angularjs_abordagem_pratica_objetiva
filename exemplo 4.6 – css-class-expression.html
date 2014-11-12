@@ -1,0 +1,21 @@
+	<!doctype html>
+	<html ng-app="myApp">
+	<style type="text/css">
+	.myblueclass{
+	  color: blue;
+	}
+	</style>
+	<body>
+	  <div ng-controller="ClassController">
+	    <div class="my{{className}}">Hello World</div>
+	  </div>
+	<script src="angular.min.js"></script>
+	<script type="text/javascript">
+	var app = angular.module('myApp',[]);
+	
+	app.controller('ClassController',['$scope',function($scope){
+		$scope.className =“blueclass";
+	}]);
+	</script>
+	</body>
+	</html>

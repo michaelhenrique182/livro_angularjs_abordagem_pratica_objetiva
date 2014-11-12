@@ -1,0 +1,23 @@
+	<!doctype html>
+	<html ng-app="myApp">
+	<body>
+	  <div ng-controller="MyController">
+	    <ul>
+	      <li ng-repeat="item in itens">[Indice: {{$index}} ] {{item.id}} - {{item.nome}}</li>
+	    </ul>
+	  </div>
+	<script src="angular.min.js"></script>
+	<script type="text/javascript">
+	var app = angular.module('myApp',[]);
+	
+	app.controller('MyController',['$scope',function($scope){
+		$scope.itens =[
+			{id:'1', nome:'John'},
+			{id:'2', nome:'Dephy'},
+			{id:'3', nome:'Taylor'},
+			{id:'4', nome:'Memphis'},
+		];
+	}]);
+	</script>
+	</body>
+	</html>

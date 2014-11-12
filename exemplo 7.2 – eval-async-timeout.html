@@ -1,0 +1,32 @@
+  <!doctype html>
+  <html ng-app="app">
+  <body>
+  
+  <div run-tasks />
+
+  <script src="angular.min.js"></script>
+  <script type="text/javascript">
+  angular.module('app', []).directive('runTasks', ['$timeout', function($timeout) {
+    return {
+      link : function(scope, element, attrs, controller) {
+        
+        // Assinatura do $timeout => $timeout(fn, milliseconds)
+        // execute agora
+        $timeout(function(){
+          element.append('<p><i>$timeout 1</i> runs after $evalAsync!</p>');
+        });
+        
+        scope.$evalAsync(function( $scope ) {
+          element.append('<p><b>$evalAsync</b> runs first!</p>');
+        });
+        
+        // execute agora
+        $timeout(function(){
+          element.append('<p><i>$timeout 2</i> runs after $evalAsync!</p>');
+        });
+    }
+   };
+  }]); 
+  </script>
+  </body>
+  </html>

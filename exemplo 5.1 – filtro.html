@@ -1,0 +1,22 @@
+	<!doctype html>
+	<html ng-app="myApp">
+	<body>
+	  <div ng-controller="UsuarioController">
+	    Seja bem vindo {{nome | uppercase}} !
+	  </div>
+	<script src="angular.min.js"></script>
+	<script type="text/javascript">
+	var app = angular.module('myApp', []);
+	
+	app.controller('UsuarioController', [ '$scope', function($scope) {
+		$scope.nome = 'John Henry';
+	}]);
+
+	app.filter('uppercase', function() {
+		return function(input){
+			return input == 'undefined' || input == null ? input : input.toUpperCase();
+		};
+	});
+	</script>
+	</body>
+	</html>
